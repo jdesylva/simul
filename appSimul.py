@@ -156,7 +156,6 @@ class appSimul:
         #widget_id = event.widget.winfo_id()
         #print(f"The ID of the widget is: {widget_id}")
         msg = self.creerMessageApplication(appEui, devEui)  #
-        print(f"msg = {msg}")
         self.mqtt_client.publish(f"application/{self.parametres['appeui']}/device/{event.widget['text']}/event/up", msg)
         
     def on_configure(self, event):
@@ -306,14 +305,9 @@ class appSimul:
             strObjet += (f'"{item["type"]}":' + self.dictValPeri[deviceEui][deviceEui+item["type"]].get() + ", ")
         # Enlever la derniere virgule
         strObjet = strObjet[0:len(strObjet)-2]
-        print(strObjet) # debug
-
 
         h = time.localtime()
-        print(f"heure == {h}")
         nsTime = str(h.tm_year) + f"-{h.tm_mon:0>2d}" + f"-{h.tm_mday:0>2d}T" + f"{h.tm_hour:0>2d}" + f":{h.tm_min:0>2d}" + f":{h.tm_sec:0>2d}"
-        print(f"nsTime == {nsTime}")
-        
         
         message = '{"deduplicationId":"030550d5-bab3-4379-bd9f-21fa296d2023", "time":"' + nsTime
         message += '.291078344+00:00", ' +\
@@ -324,7 +318,7 @@ class appSimul:
             '"deviceProfileId":"3869334d-6cee-41e4-9657-9ca881f15401", ' +\
             '"deviceProfileName":"DEV-RP2040-RFM9x", ' +\
             '"deviceName":"Dev-Feather2040RFM-OTAA", ' +\
-            '"devEui":"df625857c791302f", ' +\
+            '"devEui":"' + deviceEui + '", ' +\
             '"deviceClassEnabled":"CLASS_A", ' +\
             '"tags":{}}, ' +\
             '"devAddr":"013fdad7", ' +\
