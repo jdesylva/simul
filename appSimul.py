@@ -316,8 +316,8 @@ class appSimul:
             '"applicationId":"b750d774-16b6-4fe8-8eb0-21ea91ff3481", ' +\
             '"applicationName":"MQTT", ' +\
             '"deviceProfileId":"3869334d-6cee-41e4-9657-9ca881f15401", ' +\
-            '"deviceProfileName":"DEV-RP2040-RFM9x", ' +\
-            '"deviceName":"Dev-Feather2040RFM-OTAA", ' +\
+            '"deviceProfileName":"Simulateur", ' +\
+            '"deviceName":"Dev-Simulateur", ' +\
             '"devEui":"' + deviceEui + '", ' +\
             '"deviceClassEnabled":"CLASS_A", ' +\
             '"tags":{}}, ' +\
@@ -331,7 +331,7 @@ class appSimul:
             '"object":{' 
 
         message  += strObjet +\
-            ', "RxInfo": ' +\
+            '}, "rxInfo": ' +\
             '[ ' +\
             '{"gatewayId":"2cf7f1144420002a", ' +\
             '"uplinkId":1676047845, ' +\
@@ -355,7 +355,7 @@ class appSimul:
             '"bandwidth":125000, ' +\
             '"spreadingFactor":10, ' +\
             '"codeRate":"CR_4_5" ' +\
-            '}}}}}'
+            '}}}}'
         print(f"Len message == {len(message)}")
         return message.encode('utf8')
     
