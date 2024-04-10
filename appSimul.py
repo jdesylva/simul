@@ -17,13 +17,15 @@ class appSimul:
            top is the toplevel containing window.'''
 
         if  len(sys.argv) > 1:
-            confFile = sys.argv[1]
+            self.confFile = sys.argv[1]
+        else:
+            self.confFile = confFile
 
         try:
-            with open(confFile, 'r') as file:
+            with open(self.confFile, 'r') as file:
                 self.parametres = json.load(file)
         except:
-            print(f"Erreur : Impossible d'ouvrir le fichier de configuration {confFile}")
+            print(f"Erreur : Impossible d'ouvrir le fichier de configuration {self.confFile}")
             print("         Fin du programme.")
             sys.exit(-1)
             
@@ -60,7 +62,7 @@ class appSimul:
             sys.exit(-1)
 
         # Relier notre client à l'interface MQTT de notre serveur ChirpStack
-        self.mqtt_client = mqttclient.mqttclient(confFile)
+        self.mqtt_client = mqttclient.mqttclient(self.confFile)
         self.mqtt_client.connect()
 
         # Get the current screen width and height
@@ -203,7 +205,7 @@ class appSimul:
                 
             # Relier notre client à l'interface MQTT du serveur ChirpStack.
             # On passe en paramètre le nom du fichier de configuration json.
-            self.mqtt_client = mqttclient.mqttclient("demolora.json")
+            self.mqtt_client = mqttclient.mqttclient(self.confFile)
 
             self.lblPortTCP.configure(text=str(self.port), fg='black')
             # On mémorise la nouvelle adresse (debug)
@@ -331,7 +333,7 @@ class appSimul:
             '"object":{' 
 
         message  += strObjet +\
-            ', "RxInfo": ' +\
+            '}, "rxInfo": ' +\
             '[ ' +\
             '{"gatewayId":"2cf7f1144420002a", ' +\
             '"uplinkId":1676047845, ' +\
@@ -355,7 +357,7 @@ class appSimul:
             '"bandwidth":125000, ' +\
             '"spreadingFactor":10, ' +\
             '"codeRate":"CR_4_5" ' +\
-            '}}}}}'
+            '}}}}'
         print(f"Len message == {len(message)}")
         return message.encode('utf8')
     
